@@ -26,26 +26,38 @@ app.get("/insert/pessoa", function (req, res) {
 	res.render("pessoa/insert.ejs")
 })
 
-app.post("/insert/pessoa", function (req, res) {
+app.post("/insert/pessoa", async function (req, res) {
 	const pessoa = new Pessoa(
 		req.body.matricula,
 		req.body.nome,
 		req.body.endereco,
 		req.body.data_nascimento
 	)
-	controle.inserePessoa(pessoa)
-	console.log("pessoa inserida com sucesso")
+	let resultado = "pessoa inserida com sucesso"
+
+	try {
+		await controle.inserePessoa(pessoa)
+	} catch (err) {
+		resultado = err
+	}
+
+	console.log(resultado)
+
 	res.redirect("/select/pessoa")
 })
 
-app.get("/delete/pessoa/:id", function (req, res) {
-	controle.deletaPessoa(req.params.id)
+app.get("/delete/pessoa/:id", async function (req, res) {
+	try {
+		await controle.deletaPessoa(req.params.id)
+	} catch (error) {
+		console.log(error)
+	}
+
 	res.redirect("/select/pessoa")
 })
 
 app.get("/edit/pessoa/:id", async function (req, res) {
 	const pessoa = await controle.getPessoa(req.params.id)
-	console.log(pessoa[0])
 	res.render("pessoa/edit.ejs", { pessoa: pessoa[0] })
 })
 
@@ -88,7 +100,6 @@ app.get("/delete/aluno/:id", function (req, res) {
 
 app.get("/edit/aluno/:id", async function (req, res) {
 	const aluno = await controle.getAluno(req.params.id)
-	console.log(aluno[0])
 	let dados = new Array()
 	dados = await controle.listaPessoas()
 
@@ -134,7 +145,6 @@ app.get("/delete/professor/:id", function (req, res) {
 
 app.get("/edit/professor/:id", async function (req, res) {
 	const professor = await controle.getProfessor(req.params.id)
-	console.log(professor[0])
 	let dados = new Array()
 	dados = await controle.listaPessoas()
 

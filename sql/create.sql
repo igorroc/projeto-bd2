@@ -6,13 +6,13 @@ create table Pessoa (
 );
 
 create table Aluno (
-    id integer primary key,
+    id integer primary key auto_increment,
     curso varchar(50) NOT NULL,
     matricula varchar(10) NOT NULL
 );
 
 create table Professor (
-    id integer primary key,
+    id integer primary key auto_increment,
     formacao varchar(100) NOT NULL,
     matricula varchar(10) NOT NULL,
     salario float NOT NULL

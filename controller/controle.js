@@ -55,20 +55,36 @@ function inserePessoa(pessoa) {
 	let sql =
 		"INSERT INTO pessoa (matricula, nome, endereco, data_nascimento) VALUES (?, ?, ?, ?)"
 
-	db.query(sql, params, (err, rows) => {
-		if (err) {
-			console.log("erro na inserção")
-		}
+	return new Promise((resolve, reject) => {
+		db.query(sql, params, (err, rows) => {
+			if (err) {
+				console.log("erro na inserção")
+				if (err.errno == 1062) {
+					reject(
+						"Não é possível inserir uma pessoa com a mesma matrícula"
+					)
+				}
+			} else {
+				resolve("Pessoa inserida com sucesso")
+			}
+		})
 	})
 }
 
 function deletaPessoa(id) {
 	let sql = "delete from faculdade.pessoa where matricula=?"
 
-	db.query(sql, [id], (err, rows) => {
-		if (err) {
-			console.log("erro no delete")
-		}
+	return new Promise((resolve, reject) => {
+		db.query(sql, [id], (err, rows) => {
+			if (err) {
+				console.log("erro no delete")
+				if (err.errno == 1451) {
+					reject(
+						"Não é possível deletar uma pessoa que possui vínculo com outra tabela"
+					)
+				}
+			}
+		})
 	})
 }
 
@@ -169,7 +185,10 @@ async function listaProfessores() {
 					pessoa = new Professor(
 						row.id,
 						row.formacao,
-						row.salario,
+						row.salario.toLocaleString("pt-BR", {
+							style: "currency",
+							currency: "BRL",
+						}),
 						row.matricula
 					)
 					lista.push(pessoa)
