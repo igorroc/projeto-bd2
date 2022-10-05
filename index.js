@@ -23,7 +23,7 @@ app.get("/select/pessoa", async (req, res) => {
 })
 
 app.get("/insert/pessoa", function (req, res) {
-	res.render("pessoa/insert.ejs")
+	res.render("pessoa/insert.ejs", { showAlert : false })
 })
 
 app.post("/insert/pessoa", async function (req, res) {
@@ -34,16 +34,22 @@ app.post("/insert/pessoa", async function (req, res) {
 		req.body.data_nascimento
 	)
 	let resultado = "pessoa inserida com sucesso"
+	let ocorreuErro = false
 
 	try {
 		await controle.inserePessoa(pessoa)
 	} catch (err) {
 		resultado = err
+		ocorreuErro = true
 	}
 
 	console.log(resultado)
 
-	res.redirect("/select/pessoa")
+	if(ocorreuErro){
+		res.render("pessoa/insert.ejs", { showAlert : true })
+	}else{
+		res.redirect("/select/pessoa")
+	}
 })
 
 app.get("/delete/pessoa/:id", async function (req, res) {
