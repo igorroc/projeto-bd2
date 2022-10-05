@@ -20,8 +20,28 @@
 	</head>
 
 	<body>
-		<%- include('head') %>
-		<h1>Atividade de Banco de Dados</h1>
-		<h2>Navegue pela nav bar acima</h2>
+		<%- include("../head") %>
+
+		<h1>INSERIR - Aluno</h1>
+		<form action="aluno" method="post">
+			<div>
+				<label for="">Curso</label>
+				<input required class="form-control" type="text" name="curso" />
+			</div>
+			<div>
+				<label for="">Pessoa</label>
+				<select required class="form-control" name="matricula">
+					<option value="">Selecione uma pessoa</option>
+					<% for(const pessoa of dados) { %>
+					<option value="<%= pessoa.matricula %>">
+						<%= pessoa.nome %>
+					</option>
+					<% } %>
+				</select>
+			</div>
+			<br />
+			<input type="submit" value="inserir" class="btn btn-success" />
+			<a href="/select/aluno" class="btn btn-danger">Voltar</a>
+		</form>
 	</body>
 </html>

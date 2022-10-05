@@ -1,14 +1,9 @@
 class Pessoa {
-	matricula = 0
-	nome = ""
-	endereco = ""
-	dataNascimento = ""
-
-	constructor(matricula, nome, endereco, dataNascimento) {
-		this.matricula = matricula
-		this.nome = nome
-		this.endereco = endereco
-		this.dataNascimento = dataNascimento
+	constructor(matricula, nome, endereco, data_nascimento) {
+		this.matricula = matricula || 0
+		this.nome = nome || ""
+		this.endereco = endereco || ""
+		this.data_nascimento = data_nascimento || new Date()
 	}
 
 	getMatricula() {
@@ -30,10 +25,10 @@ class Pessoa {
 		this.endereco = endereco
 	}
 	getDataNascimento() {
-		return this.dataNascimento
+		return this.data_nascimento
 	}
-	setDataNascimento(dataNascimento) {
-		this.dataNascimento = dataNascimento
+	setDataNascimento(data_nascimento) {
+		this.data_nascimento = data_nascimento
 	}
 }
 

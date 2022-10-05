@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="shortcut icon"
+			href="/assets/images/logo.png"
+			type="image/x-icon"
+		/>
+		<title>EDIT BD2</title>
+		<script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+		/>
+	</head>
+
+	<body>
+		<%- include("../head") %>
+		<h1>EDITAR - Pessoa (<%= pessoa.matricula %>)</h1>
+		<form action="<%= pessoa.matricula %>" method="post">
+			<div>
+				<label for="">Nome</label>
+				<input
+					required
+					class="form-control"
+					type="text"
+					name="nome"
+					placeholder="<%= pessoa.nome %>"
+				/>
+			</div>
+			<div>
+				<label for="">Endereco</label>
+				<input
+					required
+					class="form-control"
+					type="text"
+					name="endereco"
+					placeholder="<%= pessoa.endereco %>"
+				/>
+			</div>
+			<div>
+				<label for="">Data Nascimento</label>
+				<input
+					required
+					class="form-control"
+					type="date"
+					name="dataNascimento"
+					placeholder="<%= pessoa.data_nascimento %>"
+				/>
+			</div>
+			<br />
+			<input type="submit" value="Editar" class="btn btn-success" />
+			<a href="/select/pessoa" class="btn btn-danger">Voltar</a>
+		</form>
+	</body>
+</html>
