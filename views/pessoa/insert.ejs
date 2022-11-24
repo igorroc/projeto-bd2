@@ -59,5 +59,13 @@
 			<input type="submit" value="Inserir" class="btn btn-success" />
 			<a href="/select/pessoa" class="btn btn-danger">Voltar</a>
 		</form>
+		
+		<% if (showAlert) { %>
+			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+			<script type="module">
+				console.log(swal)
+				swal("Erro", "O numero de matricula digitado ja foi inserido", "error")
+		   </script>
+		<% } %>
 	</body>
 </html>
